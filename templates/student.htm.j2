@@ -1,0 +1,135 @@
+{% extends 'base.htm.j2' %}
+{% block content %}
+
+
+    <div class="content">
+
+        <div class="box info">
+            <h1>Student View</h1>
+            <p>{{msg}}</p>
+
+            <ul>
+                <li>lis_person_name_full is <b>{{ lis_person_name_full }}</b></li>
+                <li>{{ roles }}</li>
+                <li>View/Route: views.py '/launch'</li>
+                <li>Template: templates/student.htm.j2</li>
+            </ul>
+
+            <p>TODO: Basic stats here</p>
+
+            <p>Note: You can see all the LTI params in your server console.</p>
+
+        </div>
+
+        <div class="box start">
+            <h2>Tracker Start</h2>
+            <table class="fields">
+                <tr>
+                    <td>Host</td>
+                    <td><input id="host" type="text" name="host" value="{{ rage_host }}"></td>
+                </tr>
+                <tr>
+                    <td>Tracking Code</td>
+                    <td><input id="trackingCode" type="text" name="trackingCode" value="{{ rage_tracker_id }}"></td>
+                </tr>
+                <tr>
+                    <td>User</td>
+                    <td><input id="username" type="text" name="username" value=""></td>
+                </tr>
+                <tr>
+                    <td>Pass</td>
+                    <td><input id="password" type="password" name="password" value=""></td>
+                </tr>
+                <tr>
+                    <td>UserToken</td>
+                    <td><input id="userToken" type="text" name="userToken"></td>
+                </tr>
+            </table>
+            <p><input type="button" id="login" value="Login"><br>
+                <input type="button" id="start" value="Start"></p>
+        </div>
+        <div class="box data">
+            <p>authToken = <span id="authToken"></span></p>
+            <p>playerId = <span id="playerId"></span></p>
+            <p>session = <span id="session"></span></p>
+            <p>actor = <span id="actor"></span></p>
+        </div>
+        <div class="box sender">
+            <table class="fields">
+                <tr>
+                    <td>Verb</td>
+                    <td><input id="verb" type="text" name="verb"></td>
+                </tr>
+                <tr>
+                    <td>Object Type</td>
+                    <td><input id="target_type" type="text" name="target_type"></td>
+                </tr>
+                <tr>
+                    <td>Object ID</td>
+                    <td><input id="target_id" type="text" name="target_id"></td>
+                </tr>
+            </table>
+            <h3>Result</h3>
+            <table class="extensions">
+                <tr>
+                    <th>Name</th><th>Value</th><th>Send?</th><th>Name</th><th>Value</th><th>Send?</th>
+                </tr>
+                <tr>
+                    <td>Score</td>
+                    <td><input id="score" type="number" name="score" min="0" max="1" step="0.1" value="0.5"></td>
+                    <td><input id="send_score" type="checkbox" name="send_score"></td>
+
+                    <td>Success</td>
+                    <td><input id="success" type="checkbox" name="success"></td>
+                    <td><input id="send_success" type="checkbox" name="send_success"></td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td>Response</td>
+                    <td><input id="response" type="text" name="response"></td>
+                    <td><input id="send_response" type="checkbox" name="send_response"></td>
+
+                    <td>Completion</td>
+                    <td><input id="completion" type="checkbox" name="completion"></td>
+                    <td><input id="send_completion" type="checkbox" name="send_completion"></td>
+                </tr>
+                <tr>
+                    <td>Extension Str</td>
+                    <td colspan="2"><input id="key" type="text" name="key"></td>
+
+                    <td>Value</td>
+                    <td><input id="value" type="text" name="value"></td>
+                    <td><input id="button" type="button" value="Add extension" onclick="addExtensionButton()"></td>
+                </tr>
+                <tr>
+                    <td>Extension Int</td>
+                    <td colspan="2"><input id="keyInt" type="text" name="key"></td>
+
+                    <td>Value2</td>
+                    <td><input id="valueInt" type="text" name="value"></td>
+                    <td><input id="button" type="button" value="Add extension" onclick="addExtensionButtonInt()"></td>
+                </tr>
+            </table>
+            <input id="trace" type="button" value="Add Trace" onclick="trackButton()">
+        </div>
+
+        <!--<div class="box trace">
+            <p>CSV = <span id="csv"></span></p>
+            <p>xAPI = <span id="xapi"></span></p>
+        </div>-->
+
+        <div class="send">
+            <input id="flush" type="button" value="Flush" onclick="flushButton()">
+        </div>
+    </div>
+
+    <script>
+    	$('#login').click(loginButton);
+        $('#start').click(startButton);
+    </script>
+
+
+{% endblock content %}
+
+

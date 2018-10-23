@@ -1,0 +1,21 @@
+{% extends 'base.htm.j2' %}
+{% block content %}
+
+<div>
+    <h1>Staff View</h1>
+    <p>{{msg}}</p>
+
+    <ul>
+        <li>lis_person_name_full is <b>{{ lis_person_name_full }}</b></li>
+        <li>{{ roles }}</li>
+        <li>View/Route: views.py '/launch'</li>
+        <li>Template: templates/staff.htm.j2</li>
+    </ul>
+
+    <p>TODO Staff data viz for all students here</p>
+
+    <p>Note: You can see all the LTI params in your server console.</p>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+2018-10-10 17:31:26,570 [ERROR] {app.py:37} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-10 17:37:43,311 [ERROR] {app.py:38} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-10 17:37:44,515 [ERROR] {app.py:38} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-10 17:46:57,942 [ERROR] {app.py:38} PyLTI error: {'exception': LTIRoleException('Not authorized.',), 'kwargs': {}, 'args': ()}
+2018-10-10 17:47:07,702 [ERROR] {app.py:38} PyLTI error: {'exception': LTIRoleException('Not authorized.',), 'kwargs': {}, 'args': ()}
+2018-10-10 17:51:05,722 [ERROR] {app.py:38} PyLTI error: {'exception': LTIRoleException('Not authorized.',), 'kwargs': {}, 'args': ()}
+2018-10-10 17:53:13,673 [ERROR] {app.py:38} PyLTI error: {'exception': LTIRoleException('Not authorized.',), 'kwargs': {}, 'args': ()}
+2018-10-10 20:04:50,199 [ERROR] {app.py:38} PyLTI error: {'exception': LTIException('This page requires a valid oauth session or request',), 'kwargs': {}, 'args': ()}
+2018-10-10 20:37:19,511 [ERROR] {app.py:38} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 09:59:16,830 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 09:59:22,461 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:06:41,165 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:16:07,120 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:16:16,133 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:16:27,490 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:23:46,248 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:29:31,313 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:29:32,738 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 10:29:36,195 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 11:04:56,999 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 11:05:04,032 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 11:05:14,475 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 11:21:46,238 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 11:40:26,225 [ERROR] {app.py:39} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 16:04:47,446 [ERROR] {app.py:38} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
+2018-10-23 16:04:51,838 [ERROR] {app.py:38} PyLTI error: {'exception': LTIException('OAuth error: Please check your key and secret',), 'kwargs': {}, 'args': ()}
