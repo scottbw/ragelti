@@ -50,3 +50,7 @@ configClass = 'config.DevelopmentConfig'
 #
 RAGE_GAME_HOST = os.environ.get("RAGE_HOST", 'http://127.0.0.1:3000/api/proxy/gleaner/collector')
 RAGE_TRACKER_ID = os.environ.get('RAGE_TRACKER', '')
+RAGE_GAME_ID = os.environ.get('RAGE_GAME_ID', '')
+RAGE_DEFAULT_STUDENT_PASSWORD = os.environ.get('RAGE_DEFAULT_STUDENT_PASSWORD', 'CHANGEME')
+RAGE_USERNAME = os.environ.get('RAGE_USERNAME', '')
+RAGE_PASSWORD = os.environ.get('RAGE_PASSWORD', '')

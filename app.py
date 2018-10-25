@@ -4,8 +4,8 @@ from pylti.flask import LTI
 import settings
 import logging
 import json
-from rage import Rage
 from logging.handlers import RotatingFileHandler
+from rage import Rage
 
 app = Flask(__name__)
 app.secret_key = settings.secret_key
@@ -66,16 +66,33 @@ def launch(lti=lti):
     # Render either the student view or the lecturer view
     #
     if LTI.is_role(lti, 'lecturer'):
+        # TODO I'm hard coding a class here until new activities stop killing the server backend
         context = request.form.get('lis_course_section_sourcedid')
+        rage = Rage()
+        rage.login(settings.RAGE_USERNAME, settings.RAGE_PASSWORD)
+        rage.setup_activity('Third Class')
+        results = rage.get_results()
         return render_template('launch.htm.j2', lis_person_name_full=session['lis_person_name_full'],
-                               rage_host = settings.RAGE_GAME_HOST,
-                               rage_tracker_id = settings.RAGE_TRACKER_ID,
+                               rage_host=settings.RAGE_GAME_HOST,
+                               rage_tracker_id=settings.RAGE_TRACKER_ID,
+                               results=results,
+                               rage_token=rage.the_token,
+                               results_json=json.dumps(results),
+                               class_name='Third Class',
                                roles=session['roles'])
     else:
         user_id = request.form.get('user_id')
+        student_email_address = request.form.get('lis_person_contact_email_primary')
+        rage = Rage()
+        rage.login(settings.RAGE_USERNAME, settings.RAGE_PASSWORD)
+        rage.setup_activity('Third Class')
+        rage.add_student(user_id, student_email_address)
+        rage.login(user_id, settings.RAGE_DEFAULT_STUDENT_PASSWORD)
+
         return render_template('student.htm.j2', lis_person_name_full=session['lis_person_name_full'],
                                rage_host=settings.RAGE_GAME_HOST,
                                rage_tracker_id=settings.RAGE_TRACKER_ID,
+                               rage_token=rage.the_token,
                                roles=session['roles'])
 
 

@@ -1,21 +1,40 @@
 {% extends 'base.htm.j2' %}
 {% block content %}
 
-<div>
-    <h1>LTI Launch Verified!</h1>
-    <p>{{msg}}</p>
+<div class="content">
 
-    <ul>
-        <li>lis_person_name_full is <b>{{ lis_person_name_full }}</b></li>
-        <li>{{ roles }}</li>
-        <li>View/Route: views.py '/launch'</li>
-        <li>Template: templates/launch.htm.j2</li>
-    </ul>
+        <div class="box info">
+            <h1>Teacher View</h1>
+            <p>{{msg}}</p>
 
-    <p>Note: You can see all the LTI params in your server console.</p>
+            <ul>
+                <li>lis_person_name_full is <b>{{ lis_person_name_full }}</b></li>
+                <li>{{ roles }}</li>
+                <li>View/Route: views.py '/launch'</li>
+                <li>Template: templates/launch.htm.j2</li>
+            </ul>
 
-    <p>Here's an example of displaying an image with Flask:</p>
-    <img src={{ url_for('static', filename='img/example.jpg') }} alt="Example image" />
+
+            <p>Note: You can see all the LTI params in your server console.</p>
+
+        </div>
+
+
+        <div class="box rawdata">
+            <h3>Analytics Raw Data</h3>
+            <textarea rows="10" cols="256">{{ results }}</textarea>
+        </div>
+
+        <div class="box viz">
+            <h1>{{ class_name }}: Results</h1>
+            <h3>Student actions (xAPI verbs)</h3>
+            <div id="donut-chart"></div>
+        </div>
+
+    <script>
+        window.data = {{ results_json }};
+        $.ready(graph());
+    </script>
 </div>
 
 {% endblock content %}
