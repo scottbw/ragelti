@@ -1,3 +1,4 @@
+
     window.tracker = null;
 
     var show_visualisations = function(){
@@ -221,4 +222,3 @@
 	var addExtensionButtonInt = function(){
 		tracker.addExtension($("#keyInt").val(), parseInt($("#valueInt").val()) );
 	}
-

@@ -36,7 +36,7 @@
 	.box.start h2 {margin: 0px; padding: 0px; text-align: center;}
 	.box.info {position: absolute; right: 0px; top: 0px; background-color: white; width: 400px; z-index: 2;}
 	.box.data {position: absolute; left: 0px; top: 0px;  width: 300px; z-index: 1; white-space: nowrap;}
-	.box.rawdata {position: absolute; left: 0px; bottom: 0px;  width: 100%; z-index: 1; white-space: nowrap;}
+	.box.rawdata {position: absolute; right: 0px; bottom: 0px;  width: 400px; height: 300px; z-index: 1; white-space: nowrap;}
 	.box.sender {position: absolute; left: 0px; bottom: 0px; width: 400px; z-index: 1; white-space: nowrap;}
 	.box.viz {position: absolute; left: 0px; top: 0px; background-color: white; width: 800px; z-index: 2;}
 

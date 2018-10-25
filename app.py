@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, Response
+from flask import Flask, render_template, session, request, Response, jsonify
 from pylti.flask import lti
 from pylti.flask import LTI
 import settings
@@ -93,7 +93,16 @@ def launch(lti=lti):
                                rage_host=settings.RAGE_GAME_HOST,
                                rage_tracker_id=settings.RAGE_TRACKER_ID,
                                rage_token=rage.the_token,
+                               send_results=send_results,
                                roles=session['roles'])
+
+
+@app.route('/send', methods=['GET'])
+@lti(error=error, request='session', app=app)
+def send_results(lti=lti):
+    score = request.args.get("score")
+    ret = lti.post_grade(score)
+    return jsonify("grade={}".format(ret))
 
 
 # Home page

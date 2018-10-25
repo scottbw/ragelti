@@ -15,9 +15,11 @@
                 <li>Template: templates/student.htm.j2</li>
             </ul>
 
-            <p>TODO: Basic stats here</p>
+            <p> <input type="button" id="send" value="Send"> </p>
 
             <p>Note: You can see all the LTI params in your server console.</p>
+
+
 
         </div>
 
@@ -125,8 +127,28 @@
     </div>
 
     <script>
-    	$('#login').click(loginButton);
+        //
+        // Register listener events
+        //
+
+        SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+        $('#login').click(loginButton);
+
         $('#start').click(startButton);
+
+        $(function() {
+            $('#send').bind('click', function() {
+                $.getJSON(SCRIPT_ROOT + '/send', {
+                    // TODO replace with the real value later
+                    score: 0.5
+                }, function(data) {
+                    $( "#send" ).css('background-color','green');
+                });
+                return false;
+            });
+        });
+
     </script>
 
 
