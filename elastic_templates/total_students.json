@@ -1,0 +1,2 @@
+{"index":["{{index}}"]}
+{"query":{"bool":{"must":[{"query_string":{"query":"*","analyze_wildcard":true}},{"match_all":{}}],"must_not":[]}},"size":0,"_source":{"excludes":[]},"aggs":{"all":{"cardinality":{"field":"out.name.keyword"}}},"version":true,"highlight":{"pre_tags":["@kibana-highlighted-field@"],"post_tags":["@/kibana-highlighted-field@"],"fields":{"*":{"highlight_query":{"bool":{"must":[{"query_string":{"query":"*","analyze_wildcard":true,"all_fields":true}},{"match_all":{}}],"must_not":[]}}}},"fragment_size":2147483647}}

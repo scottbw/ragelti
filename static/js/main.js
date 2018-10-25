@@ -8,7 +8,7 @@
 
     var completions = function(){
         var items = window.data.completed_items;
-        var width = 150,
+        var width = 300,
             height = 150,
             margin = ({top: 20, right: 0, bottom: 30, left: 40}),
             color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -106,7 +106,7 @@
             div.transition()
                 .duration(200)
                 .style("opacity", .9);
-            div	.html(d.data.key)
+            div	.html(d.data.key + ": "+d.data.doc_count)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -116,6 +116,7 @@
                 .style("opacity", 0);
         });
         g.append("text")
+            .attr("opacity", function(d) { return d.data.doc_count > 1 ? 1 : 0; })
             .attr("transform", function(d) {
                 var c = arc.centroid(d),
                     x = c[0],
@@ -134,7 +135,7 @@
             .attr("dy", ".35em")
             //.style("text-anchor", "middle")
             .style("fill", "black")
-            .text(function (d) { return d.data.key; });
+            .text(function (d) { return d.data.key + ": "+d.data.doc_count; });
     }
 
 

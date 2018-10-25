@@ -4,29 +4,14 @@
 <div class="content">
 
         <div class="box info">
-            <h1>Teacher View</h1>
-            <p>{{msg}}</p>
-
-            <ul>
-                <li>lis_person_name_full is <b>{{ lis_person_name_full }}</b></li>
-                <li>{{ roles }}</li>
-                <li>View/Route: views.py '/launch'</li>
-                <li>Template: templates/launch.htm.j2</li>
-            </ul>
-
-
-            <p>Note: You can see all the LTI params in your server console.</p>
-
-        </div>
-
-
-        <div class="box rawdata">
             <h3>Analytics Raw Data</h3>
             <p><textarea rows="12" cols="60">{{ results }}</textarea></p>
         </div>
 
         <div class="box viz">
-            <h1>{{ class_name }}: Results</h1>
+            <h1>LTI Test Game: {{ class_name }}</h1>
+            <p>Welcome {{ lis_person_name_full }}. Your student's progress on the game is shown in the charts below</p>
+            <h3>Total students accessing the game: {{ total_students }}</h3>
             <div class="charts">
                 <h3>Student actions (xAPI verbs)</h3>
                 <div id="donut-chart"></div>

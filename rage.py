@@ -102,8 +102,18 @@ class Rage:
             completed_query = json_data.read()
             json_data.close()
 
+        with open('elastic_templates/skip_cutscene.json') as json_data:
+            cutscene_query = json_data.read()
+            json_data.close()
+
+        with open('elastic_templates/total_students.json') as json_data:
+            total_students_query = json_data.read()
+            json_data.close()
+
         xapi_verbs_query = xapi_verbs_query.replace("{{index}}", index)
         completed_query = completed_query.replace("{{index}}", index)
+        cutscene_query = cutscene_query.replace("{{index}}", index)
+        total_students_query = total_students_query.replace("{{index}}", index)
 
         url = self.get_api_url() + '/proxy/kibana/elasticsearch/_msearch'
 
@@ -113,6 +123,12 @@ class Rage:
         completed = requests.post(url, data=completed_query, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"})\
             .json()["responses"][0]["aggregations"]["completed_items"]["buckets"]
 
-        data = {'xapi_verbs': xapi_verbs, 'completed_items': completed}
+        cutscene = requests.post(url, data=cutscene_query, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"})\
+            .json()["responses"][0]["aggregations"]["cutscene"]["buckets"]
+
+        total_students = requests.post(url, data=total_students_query, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"})\
+            .json()["responses"][0]["aggregations"]["all"]["value"]
+
+        data = {'xapi_verbs': xapi_verbs, 'completed_items': completed, 'cutscene_seen_skipped': cutscene, 'total_students': total_students}
 
         return data
