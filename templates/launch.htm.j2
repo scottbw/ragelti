@@ -27,13 +27,18 @@
 
         <div class="box viz">
             <h1>{{ class_name }}: Results</h1>
-            <h3>Student actions (xAPI verbs)</h3>
-            <div id="donut-chart"></div>
+            <div class="charts">
+                <h3>Student actions (xAPI verbs)</h3>
+                <div id="donut-chart"></div>
+
+                <h3>Items completed</h3>
+                <div id="completed-chart"></div>
+            </div>
         </div>
 
     <script>
         window.data = {{ results_json }};
-        $.ready(graph());
+        $.ready(show_visualisations());
     </script>
 </div>
 

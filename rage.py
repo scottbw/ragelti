@@ -1,5 +1,6 @@
 import settings
 import requests
+import json
 
 
 class Rage:
@@ -90,26 +91,29 @@ class Rage:
         print("add student: "+student_id + ' to activity '+self.the_activity['_id'])
 
     def get_results(self):
-        # TODO need to figure out where we get this index from, possibly its the game session?
-        url = self.get_api_url() + '/proxy/gleaner/kibana/visualization/list/dev/5bcedeb32a99fd008a9fedb1'
-        headings = requests.get(url, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"}).json()
 
-        # TODO this is currently fixed as '5bcedeb32a99fd008a9fedb2'; need to inject the real index values for the current game/class here
-        with open('query.json') as json_data:
-            query = json_data.read()
+        index = self.the_activity["versionId"]
+
+        with open('elastic_templates/xapi_verbs.json') as json_data:
+            xapi_verbs_query = json_data.read()
             json_data.close()
 
+        with open('elastic_templates/completed.json') as json_data:
+            completed_query = json_data.read()
+            json_data.close()
+
+        xapi_verbs_query = xapi_verbs_query.replace("{{index}}", index)
+        completed_query = completed_query.replace("{{index}}", index)
+
         url = self.get_api_url() + '/proxy/kibana/elasticsearch/_msearch'
-        result = requests.post(url, data=query, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"}).json()
-        responses = result["responses"]
 
-        data = []
-        for index in range(len(responses)):
-            data_item = {}
-            data_item["name"] = headings[index]
-            aggregation = responses[index]["aggregations"]
+        xapi_verbs = requests.post(url, data=xapi_verbs_query, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"})\
+            .json()["responses"][0]["aggregations"]["xapi"]["buckets"]
 
-            data_item["data"] = aggregation[list(aggregation.keys())[0]]
-            data.append(data_item)
+        completed = requests.post(url, data=completed_query, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"})\
+            .json()["responses"][0]["aggregations"]["completed_items"]["buckets"]
+
+        print(completed)
+        data = {'xapi_verbs': xapi_verbs, 'completed_items': completed}
 
         return data

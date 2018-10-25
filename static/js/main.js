@@ -1,14 +1,83 @@
     window.tracker = null;
 
+    var show_visualisations = function(){
+        xapi();
+        completions();
+    }
 
-	var graph = function(){
-        var touchdowns = window.data[7].data.buckets[2]['3'].buckets;
+    var completions = function(){
+        var items = window.data.completed_items;
+        var width = 150,
+            height = 150,
+            margin = ({top: 20, right: 0, bottom: 30, left: 40}),
+            color = d3.scaleOrdinal(d3.schemeCategory10);
+
+        var svg = d3.select("#completed-chart").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+
+        var x = d3.scaleBand()
+            .domain(items.map(d => d.key))
+            .range([margin.left, width - margin.right])
+            .padding(0.1)
+
+        var y = d3.scaleLinear()
+            .domain([0, d3.max(items, d => d.doc_count)]).nice()
+            .range([height - margin.bottom, margin.top])
+
+        var xAxis = g => g
+            .attr("transform", `translate(0,${height - margin.bottom})`)
+            .call(d3.axisBottom(x)
+                .tickSizeOuter(0))
+
+        var yAxis = g => g
+            .attr("transform", `translate(${margin.left},0)`)
+            .call(d3.axisLeft(y))
+            .call(g => g.select(".domain").remove())
+
+        var div = d3.select("body").append("div")
+    		.attr("class", "tooltip")
+    		.style("opacity", 0);
+
+        svg.append("g")
+            .attr("fill", "steelblue")
+            .selectAll("rect").data(items).enter().append("rect")
+            .attr("x", d => x(d.key))
+            .attr("y", d => y(d.doc_count))
+            .attr("height", d => y(0) - y(d.doc_count))
+            .attr("width", x.bandwidth())
+            .on("mouseover", function(d) {
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                div	.html(d.key + ": " + d.doc_count)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+
+        svg.append("g")
+            .call(xAxis);
+
+        svg.append("g")
+            .call(yAxis);
+
+
+        return svg.node();
+    }
+
+	var xapi = function(){
+        var touchdowns = window.data.xapi_verbs;
         // d3 donut chart
-        var width = 300,
-            height = 300,
+        var width = 150,
+            height = 150,
             radius = Math.min(width, height) / 2,
     		labelr = radius + 30 // radius for label anchor
-        var color = ['#ff7f0e', '#d62728', '#2ca02c', '#1f77b4'];
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
         var arc = d3.arc()
             .outerRadius(radius *.6)
             .innerRadius(radius);
@@ -19,7 +88,7 @@
             .attr("width", width+300)
             .attr("height", height+150)
             .append("g")
-		    .attr("transform", "translate(" + (radius + 30) + "," + (radius + 30) + ")");
+		    .attr("transform", "translate(" + (radius + 30) + "," + (radius + 50) + ")");
         var div = d3.select("body").append("div")
     		.attr("class", "tooltip")
     		.style("opacity", 0);
@@ -28,10 +97,10 @@
             .enter()
             .append("g")
             .attr("class", "arc")
-		    .attr("transform", "translate(" + (radius + 30) + "," + (radius - 150) + ")");
+		    .attr("transform", "translate(" + (radius + 30) + "," + (radius - 75) + ")");
         g.append("path")
             .attr("d", arc)
-            .style("fill", function (d, i) { return color[i]; });
+			.attr("fill", function(d, i) { return color(i); })
         g.on("mouseover", function(d) {
             div.transition()
                 .duration(200)
