@@ -113,7 +113,6 @@ class Rage:
         completed = requests.post(url, data=completed_query, headers={"Authorization": self.the_token, "kbn-xsrf": "reporting"})\
             .json()["responses"][0]["aggregations"]["completed_items"]["buckets"]
 
-        print(completed)
         data = {'xapi_verbs': xapi_verbs, 'completed_items': completed}
 
         return data
