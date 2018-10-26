@@ -56,9 +56,29 @@ class Rage:
 
     def get_or_create_activity(self):
         """Get the activities for the class; if we don't have one, add it"""
+
+        # Request URL: /api/proxy/gleaner/activities?gameId=5bcedeb32a99fd008a9fedb1&versionId=5bcedeb32a99fd008a9fedb2
         activities = self.get_activities()
         if len(activities) == 0:
             print("Creating an activity")
+            data = {
+                "name": "Rage LTI activity",
+                "versionId":settings.RAGE_GAME_VERSION_ID,
+                "classId": self.the_class['_id'],
+                "gameId": settings.RAGE_GAME_ID
+            }
+            params = {
+                "versionId": settings.RAGE_GAME_VERSION_ID,
+                "gameId": settings.RAGE_GAME_ID
+            }
+            url = self.get_api_url() + "/proxy/gleaner/activities"
+            response = requests.post(url, json=data, params=params, headers={"Authorization": self.the_token}).json()
+            self.the_activity = response
+
+            # Start the activity
+            print("Starting the activity")
+            url = self.get_api_url() + "/proxy/gleaner/activities/"+self.the_activity["_id"]+'/event/start'
+            response = requests.post(url, headers={"Authorization": self.the_token}).json()
         else:
             print("Activity exists already")
             self.the_activity = activities[0]
@@ -76,6 +96,7 @@ class Rage:
                 return False
 
         """Create a student login"""
+        print("Creating a student account")
         url = self.get_api_url()+'/signup/massive'
         data = {
             "users":

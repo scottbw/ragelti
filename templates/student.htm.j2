@@ -5,21 +5,24 @@
     <div class="content">
 
         <div class="box info">
-            <h1>Student View</h1>
-            <p>{{msg}}</p>
+            <h1>LTI Test Game</h1>
+            <p>Player: {{ lis_person_name_full }}</p>
+            <p>Score: <span id="score">0</span></p>
 
-            <ul>
-                <li>lis_person_name_full is <b>{{ lis_person_name_full }}</b></li>
-                <li>{{ roles }}</li>
-                <li>View/Route: views.py '/launch'</li>
-                <li>Template: templates/student.htm.j2</li>
-            </ul>
+            <button id="start">Start Game</button>
 
-            <p> <input type="button" id="send" value="Send"> </p>
+            <button id="watch" style="display:none">Watch the introduction video</button>
 
-            <p>Note: You can see all the LTI params in your server console.</p>
+            <button id="skip" style="display:none">Skip video</button>
 
+            <button id="complete1" style="display:none">Complete challenge one</button>
 
+            <button id="complete2" style="display:none">Complete challenge two</button>
+
+            <p>Click Finish to end the game and submit your score.</p>
+            <button id="send">Finish</button>
+
+            <!--<p><input type="button" id="send" value="Finish"></p>-->
 
         </div>
 
@@ -131,22 +134,70 @@
         // Register listener events
         //
 
+        // TODO add some activity images
+        // TODO add some "interacted" events for clicking on the activity images
+
+        var score = 0;
+
         SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
         $('#login').click(loginButton);
 
-        $('#start').click(startButton);
+        $('#start').click(function(){
+            startButton();
+            $("#start").attr("disabled",true);
+            $("#watch").attr("style","visibility:visible");
+            $("#skip").attr("style","visibility:visible");
+            tracker.Trace("initialized","game","game");
+            tracker.Flush(function(result, error){});
+        });
 
-        $(function() {
-            $('#send').bind('click', function() {
-                $.getJSON(SCRIPT_ROOT + '/send', {
-                    // TODO replace with the real value later
-                    score: 0.5
-                }, function(data) {
-                    $( "#send" ).css('background-color','green');
-                });
-                return false;
+        $('#skip').click(function(){
+            $("#skip").attr("style","display:none");
+            $("#watch").attr("style","display:none");
+            $("#complete1").attr("style","visibility:visible");
+            $("#complete2").attr("style","visibility:visible");
+            tracker.Trace("skipped","cutscene","introduction");
+            tracker.Flush(function(result, error){});
+        })
+
+        $('#watch').click(function(){
+            $("#skip").attr("style","display:none");
+            $("#watch").attr("style","display:none");
+            $("#complete1").attr("style","visibility:visible");
+            $("#complete2").attr("style","visibility:visible");
+            tracker.Trace("accessed","cutscene","introduction");
+            tracker.Flush(function(result, error){});
+        })
+
+        $('#complete1').click(function(){
+            $("#complete1").attr("disabled",true);
+            score+=50;
+            $("#score").html(score);
+            tracker.Trace("completed","area","challenge one");
+            tracker.Flush(function(result, error){});
+        })
+
+        $('#complete2').click(function(){
+            $("#complete2").attr("disabled",true);
+            score+=50;
+            $("#score").html(score);
+            tracker.Trace("completed","area","challenge two");
+            tracker.Flush(function(result, error){});
+        })
+
+        $('#send').bind('click', function() {
+            $("#complete1").attr("disabled",true);
+            $("#complete2").attr("disabled",true);
+            tracker.Trace("completed","game","game");
+            tracker.Flush(function(result, error){});
+            $.getJSON(SCRIPT_ROOT + '/send', {
+                // TODO replace with the real value later
+                score: 0.5
+            }, function(data) {
+                $("#send").attr("disabled",true);
             });
+            return false;
         });
 
     </script>

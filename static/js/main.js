@@ -64,8 +64,8 @@
         svg.append("g")
             .call(xAxis);
 
-        svg.append("g")
-            .call(yAxis);
+        //svg.append("g")
+        //    .call(yAxis);
 
 
         return svg.node();
@@ -167,7 +167,6 @@
 				$( "#playerId" ).text(result['playerId']);
 				$( "#session" ).text(result['session']);
 				$( "#actor" ).text(JSON.stringify(result['actor']));
-				$( "#start" ).css('background-color','green');
 
 				$(".data").animate({
 				left: "+=440",

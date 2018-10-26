@@ -62,15 +62,15 @@ def launch(lti=lti):
     session['lis_person_name_full'] = request.form.get('lis_person_name_full')
     session['roles'] = request.form.get('roles')
 
+    context = request.form.get('lis_course_section_sourcedid')
+    rage = Rage()
+    rage.login(settings.RAGE_USERNAME, settings.RAGE_PASSWORD)
+    rage.setup_activity(context)
+
     #
     # Render either the student view or the lecturer view
     #
     if LTI.is_role(lti, 'lecturer'):
-        # TODO I'm hard coding a class here until new activities stop killing the server backend
-        context = request.form.get('lis_course_section_sourcedid')
-        rage = Rage()
-        rage.login(settings.RAGE_USERNAME, settings.RAGE_PASSWORD)
-        rage.setup_activity('Third Class')
         results = rage.get_results()
         return render_template('launch.htm.j2', lis_person_name_full=session['lis_person_name_full'],
                                rage_host=settings.RAGE_GAME_HOST,
@@ -84,9 +84,6 @@ def launch(lti=lti):
     else:
         user_id = request.form.get('user_id')
         student_email_address = request.form.get('lis_person_contact_email_primary')
-        rage = Rage()
-        rage.login(settings.RAGE_USERNAME, settings.RAGE_PASSWORD)
-        rage.setup_activity('Third Class')
         rage.add_student(user_id, student_email_address)
         rage.login(user_id, settings.RAGE_DEFAULT_STUDENT_PASSWORD)
 
