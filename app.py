@@ -79,7 +79,7 @@ def launch(lti=lti):
                                rage_token=rage.the_token,
                                results_json=json.dumps(results),
                                total_students=results["total_students"],
-                               class_name='Third Class',
+                               class_name=context,
                                roles=session['roles'])
     else:
         user_id = request.form.get('user_id')

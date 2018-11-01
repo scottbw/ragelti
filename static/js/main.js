@@ -168,9 +168,6 @@
 				$( "#session" ).text(result['session']);
 				$( "#actor" ).text(JSON.stringify(result['actor']));
 
-				$(".data").animate({
-				left: "+=440",
-				});
 
 			}else{
 				$( "#start" ).css('background-color','red');
