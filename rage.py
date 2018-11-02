@@ -65,7 +65,8 @@ class Rage:
                 "name": "Rage LTI activity",
                 "versionId":settings.RAGE_GAME_VERSION_ID,
                 "classId": self.the_class['_id'],
-                "gameId": settings.RAGE_GAME_ID
+                "gameId": settings.RAGE_GAME_ID,
+                "offline": False
             }
             params = {
                 "versionId": settings.RAGE_GAME_VERSION_ID,
