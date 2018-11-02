@@ -91,7 +91,7 @@ class Rage:
 
     def add_student(self, student_id, student_email_address):
         """Add the student to the activity"""
-        for student in self.the_activity['students']:
+        for student in self.the_class['participants']['students']:
             if student == student_id:
                 print("student already added")
                 return False
